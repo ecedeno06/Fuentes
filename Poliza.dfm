@@ -7641,7 +7641,7 @@ inherited frmPoliza: TfrmPoliza
           Top = 0
           Width = 910
           Height = 358
-          ActivePage = ts_Auto
+          ActivePage = ts_vida
           Align = alClient
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -7651,6 +7651,7 @@ inherited frmPoliza: TfrmPoliza
           ParentFont = False
           Style = tsFlatButtons
           TabOrder = 0
+          ExplicitTop = 5
           object ts_Auto: TTabSheet
             Caption = 'Auto'
             Font.Charset = DEFAULT_CHARSET
@@ -7748,10 +7749,11 @@ inherited frmPoliza: TfrmPoliza
               Top = 3
               Width = 658
               Height = 321
-              ActivePage = ts_Auto_Coberturas
+              ActivePage = ts_Auto_DatosGenerales
               Align = alClient
               Style = tsFlatButtons
               TabOrder = 1
+              OnChange = pc_autoChange
               object ts_Auto_DatosGenerales: TTabSheet
                 Caption = 'Datos Generales'
                 object Panel5: TPanel
@@ -8101,7 +8103,7 @@ inherited frmPoliza: TfrmPoliza
                   end
                 end
               end
-              object ts_Auto_Coberturas: TTabSheet
+              object ts_auto_coberturas: TTabSheet
                 Caption = 'Coberturas'
                 ImageIndex = 2
                 object Splitter8: TSplitter
@@ -8584,16 +8586,17 @@ inherited frmPoliza: TfrmPoliza
                   end>
               end
             end
-            object pc_Incendio: TPageControl
+            object pc_incendio: TPageControl
               AlignWithMargins = True
               Left = 241
               Top = 3
               Width = 658
               Height = 321
-              ActivePage = ts_Incendio_Coberturas
+              ActivePage = ts_incendio_coberturas
               Align = alClient
               Style = tsFlatButtons
               TabOrder = 1
+              OnChange = pc_incendioChange
               object ts_Incendio_DatosGenerales: TTabSheet
                 Caption = 'Datos Generales'
                 object ToolBar6: TToolBar
@@ -8659,7 +8662,7 @@ inherited frmPoliza: TfrmPoliza
                   TabOrder = 1
                 end
               end
-              object ts_Incendio_Coberturas: TTabSheet
+              object ts_incendio_coberturas: TTabSheet
                 Caption = 'Coberturas'
                 ImageIndex = 2
                 object Splitter9: TSplitter
@@ -9078,6 +9081,7 @@ inherited frmPoliza: TfrmPoliza
               Align = alClient
               Style = tsFlatButtons
               TabOrder = 1
+              OnChange = pc_roboChange
               object ts_generales_robo: TTabSheet
                 Caption = 'Datos Generales'
                 object ToolBar8: TToolBar
@@ -9563,10 +9567,11 @@ inherited frmPoliza: TfrmPoliza
               Top = 3
               Width = 658
               Height = 321
-              ActivePage = ts_Coberturas_vida
+              ActivePage = ts_coberturas_vida
               Align = alClient
               Style = tsFlatButtons
               TabOrder = 1
+              OnChange = pc_vidaChange
               object TabSheet8: TTabSheet
                 Caption = 'Datos Generales'
                 object ToolBar11: TToolBar
@@ -9631,7 +9636,7 @@ inherited frmPoliza: TfrmPoliza
                   TabOrder = 1
                 end
               end
-              object ts_Coberturas_vida: TTabSheet
+              object ts_coberturas_vida: TTabSheet
                 Caption = 'Coberturas'
                 ImageIndex = 1
                 object Splitter10: TSplitter
@@ -21533,8 +21538,8 @@ inherited frmPoliza: TfrmPoliza
     SQL.Strings = (
       'select * from vAseguradoPolizas'
       'Order by  nombre , apellido , ramo_subramo, poliza ')
-    Left = 184
-    Top = 64
+    Left = 560
+    Top = 200
     object AseguradoPolizasdescripcion: TWideStringField
       FieldName = 'descripcion'
       Origin = 'descripcion'

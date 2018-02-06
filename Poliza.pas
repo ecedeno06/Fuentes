@@ -259,7 +259,7 @@ type
     Gestionesguid: TStringField;
     GestionesEstadoGestion: TStringField;
     GestionesidGestion: TIntegerField;
-    pc_Incendio: TPageControl;
+    pc_incendio: TPageControl;
     ts_Incendio_DatosGenerales: TTabSheet;
     ts_Incendio_Reclamo: TTabSheet;
     grp_item_Incencio: TGroupBox;
@@ -270,7 +270,7 @@ type
     Splitter7: TSplitter;
     pc_vida: TPageControl;
     TabSheet8: TTabSheet;
-    ts_Coberturas_vida: TTabSheet;
+    ts_coberturas_vida: TTabSheet;
     Items: TFDQuery;
     Itemsramo: TIntegerField;
     Itemspoliza: TWideStringField;
@@ -388,8 +388,8 @@ type
     mBienfecha_placa: TSQLTimeStampField;
     mBienid_municipio: TIntegerField;
     mBienmesPlaca: TIntegerField;
-    ts_Incendio_Coberturas: TTabSheet;
-    ts_Auto_Coberturas: TTabSheet;
+    ts_incendio_coberturas: TTabSheet;
+    ts_auto_coberturas: TTabSheet;
     ts_Auto_Adjuntos: TTabSheet;
     dts_TipoVehiculo: TDataSource;
     coberturas: TFDQuery;
@@ -634,7 +634,6 @@ type
     Procedure CargarModelos;
     procedure sb_item_newClick(Sender: TObject);
     procedure sb_item_salvarClick(Sender: TObject);
-    procedure sb_item_UnDoClick(Sender: TObject);
 
     //----
     Function Componentes(grp : TGroupBox ; valor : Boolean ) : Boolean;
@@ -692,6 +691,10 @@ type
     procedure dbgPolizasDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure AseguradoPolizasCalcFields(DataSet: TDataSet);
+    procedure pc_autoChange(Sender: TObject);
+    procedure pc_incendioChange(Sender: TObject);
+    procedure pc_roboChange(Sender: TObject);
+    procedure pc_vidaChange(Sender: TObject);
 
 
   private
@@ -1480,42 +1483,52 @@ procedure TfrmPoliza.CargarCoberturas;
 var
   _dbgName : String;
   _dbgrid  : TDBGrid ;
-
+  _name  : String;
+  _page  : TPageControl  ;
+  _tabs  : TTabSheet ;
 begin
 //--- Cargar Coberturas
-
+  inherited;
+  _name := 'pc_' + _poliza.siglas ;
+  _page := findComponent(_name) as TPageControl;
+  _name := 'ts_' + _poliza.siglas + '_coberturas';
 
   coberturas.Close;
-  coberturas.Params[0].AsInteger :=  _poliza.ramo;
-  coberturas.Params[1].AsString  :=  _poliza.poliza ;
-  coberturas.Params[2].AsInteger :=  _poliza.vigencia ;
-  coberturas.Params[3].AsInteger :=  _poliza.bien ;
-  coberturas.Open();
+  coberturas.open;
 
-//  Botones_Cobertura(true,false,false,false,false,_poliza.siglas ,False);
-  Botones('btn_cob',true,false,false,false,false,_poliza.siglas , false,'grp_cob_');
-
-  if  coberturas.IsEmpty then
-  Begin
-    TotalCoberturas;
+  if _page.ActivePage.Name = _name then
+  begin
     coberturas.Close;
-    coberturas.open;
-  End
-  Else
-  Begin
+    coberturas.Params[0].AsInteger :=  _poliza.ramo;
+    coberturas.Params[1].AsString  :=  _poliza.poliza ;
+    coberturas.Params[2].AsInteger :=  _poliza.vigencia ;
+    coberturas.Params[3].AsInteger :=  _poliza.bien ;
+    coberturas.Open();
 
-    Botones('btn_cob',true,true,false,false,true,_poliza.siglas , false,'grp_cob_');
-    _dbgName := 'dbg_Coberturas_' + lowercase(AseguradoPolizassiglas.AsString );
-    _dbgrid := FindComponent(_dbgName) as TDBGrid;
+  //  Botones_Cobertura(true,false,false,false,false,_poliza.siglas ,False);
+    Botones('btn_cob',true,false,false,false,false,_poliza.siglas , false,'grp_cob_');
 
-    TotalCoberturas;
+    if  coberturas.IsEmpty then
+    Begin
+      TotalCoberturas;
+      coberturas.Close;
+      coberturas.open;
+    End
+    Else
+    Begin
 
-    _dbgrid.Height :=  _dbgrid.Height + 1;
-    _dbgrid.Height :=  _dbgrid.Height - 1;
+      Botones('btn_cob',true,true,false,false,true,_poliza.siglas , false,'grp_cob_');
+      _dbgName := 'dbg_Coberturas_' + lowercase(AseguradoPolizassiglas.AsString );
+      _dbgrid := FindComponent(_dbgName) as TDBGrid;
 
-  End;
+      TotalCoberturas;
 
+      _dbgrid.Height :=  _dbgrid.Height + 1;
+      _dbgrid.Height :=  _dbgrid.Height - 1;
 
+    End;
+
+  end;
 end;
 
 procedure TfrmPoliza.CargarGenerales;
@@ -1987,15 +2000,20 @@ begin
   inherited;
   if not AseguradoPolizas.IsEmpty then
   Begin
-    CargarGenerales;
-    CargarGestiones;
 
-    //--- Cargar Coberturas
-//
     _poliza.ramo      := AseguradoPolizasramo_subramo.AsInteger ;
     _poliza.poliza    := AseguradoPolizaspoliza.AsString ;
     _poliza.vigencia  := AseguradoPolizasvigencia.AsInteger ;
     _Poliza.siglas    := AseguradoPolizassiglas.AsString ;
+
+    CargarGenerales;
+
+    if pc_poliza.ActivePage.Name = 'ts_gestiones' then
+      CargarGestiones;
+
+    //--- Cargar Coberturas
+//
+
 //
     dm1.coberturasRamo.Close;
     dm1.coberturasRamo.Params [0].AsInteger := _poliza.ramo;
@@ -2332,6 +2350,18 @@ begin
 
 end;
 
+procedure TfrmPoliza.pc_autoChange(Sender: TObject);
+begin
+  inherited;
+  CargarCoberturas;
+end;
+
+procedure TfrmPoliza.pc_incendioChange(Sender: TObject);
+begin
+  inherited;
+  CargarCoberturas;
+end;
+
 procedure TfrmPoliza.pc_polizaChange(Sender: TObject);
 begin
   inherited;
@@ -2341,6 +2371,18 @@ begin
     CargarGestiones;
   end;
 
+end;
+
+procedure TfrmPoliza.pc_roboChange(Sender: TObject);
+begin
+  inherited;
+  CargarCoberturas;
+end;
+
+procedure TfrmPoliza.pc_vidaChange(Sender: TObject);
+begin
+  inherited;
+  CargarCoberturas;
 end;
 
 procedure TfrmPoliza.pnl_bienDblClick(Sender: TObject);
@@ -2633,19 +2675,6 @@ begin
 //    ShowMessage('...');
 //  End;
 //  Componentes(grp_item_auto , True );
-end;
-
-procedure TfrmPoliza.sb_item_UnDoClick(Sender: TObject);
-begin
-  inherited;
-//  mBien.Cancel;
-//  Componentes(grp_item_auto , True );
-//  ed_filtro_auto.Enabled := True;
-//  sb_item_editar.Enabled := true ;
-//  sb_item_new.Enabled    := true ;
-//  sb_item_salvar.Enabled := False ;
-//  sb_item_UnDo.Enabled   := False;
-//  CargarBien ;
 end;
 
 procedure TfrmPoliza.TotalCoberturas;
