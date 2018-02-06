@@ -8,8 +8,6 @@ inherited frmPoliza: TfrmPoliza
   WindowState = wsMaximized
   OnActivate = FormActivate
   OnShow = FormShow
-  ExplicitLeft = -161
-  ExplicitTop = -268
   ExplicitWidth = 948
   ExplicitHeight = 675
   PixelsPerInch = 96
@@ -3442,6 +3440,7 @@ inherited frmPoliza: TfrmPoliza
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         OnCellClick = dbgPolizasCellClick
+        OnDrawColumnCell = dbgPolizasDrawColumnCell
         Columns = <
           item
             Expanded = False
@@ -3536,6 +3535,11 @@ inherited frmPoliza: TfrmPoliza
           item
             Expanded = False
             FieldName = 'siglas'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = '_renovar'
             Visible = True
           end>
       end
@@ -7744,7 +7748,7 @@ inherited frmPoliza: TfrmPoliza
               Top = 3
               Width = 658
               Height = 321
-              ActivePage = ts_Auto_DatosGenerales
+              ActivePage = ts_Auto_Coberturas
               Align = alClient
               Style = tsFlatButtons
               TabOrder = 1
@@ -21524,12 +21528,13 @@ inherited frmPoliza: TfrmPoliza
     end
   end
   object AseguradoPolizas: TFDQuery
+    OnCalcFields = AseguradoPolizasCalcFields
     Connection = dm1.sib
     SQL.Strings = (
       'select * from vAseguradoPolizas'
       'Order by  nombre , apellido , ramo_subramo, poliza ')
-    Left = 56
-    Top = 16
+    Left = 184
+    Top = 64
     object AseguradoPolizasdescripcion: TWideStringField
       FieldName = 'descripcion'
       Origin = 'descripcion'
@@ -21606,6 +21611,15 @@ inherited frmPoliza: TfrmPoliza
       FieldName = 'siglas'
       Origin = 'siglas'
       Size = 50
+    end
+    object AseguradoPolizasfin: TSQLTimeStampField
+      FieldName = 'fin'
+      Origin = 'fin'
+    end
+    object AseguradoPolizas_renovar: TBooleanField
+      FieldKind = fkCalculated
+      FieldName = '_renovar'
+      Calculated = True
     end
   end
   object Gestiones: TFDQuery
@@ -22279,7 +22293,7 @@ inherited frmPoliza: TfrmPoliza
       '  and poliza       = :Poliza'
       '  and vigencia     = :vigencia'
       '  and bien         = :bien  ')
-    Left = 287
+    Left = 263
     Top = 572
     ParamData = <
       item

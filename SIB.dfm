@@ -75,6 +75,7 @@ object frmSIB: TfrmSIB
         Margins.Top = 0
         Margins.Right = 0
         Margins.Bottom = 0
+        VertScrollBar.Position = 240
         VertScrollBar.Tracking = True
         Align = alClient
         BevelEdges = []
@@ -97,7 +98,7 @@ object frmSIB: TfrmSIB
         TabOrder = 0
         object CategoryPanel1: TCategoryPanel
           AlignWithMargins = True
-          Top = 260
+          Top = 20
           Height = 263
           Caption = 'Pendientes'
           ParentBackground = True
@@ -250,7 +251,7 @@ object frmSIB: TfrmSIB
           end
         end
         object CategoryPanel2: TCategoryPanel
-          Top = 0
+          Top = -240
           Height = 257
           Caption = 'Cumpleanos'
           Color = clInactiveBorder

@@ -583,6 +583,8 @@ type
     Label62: TLabel;
     dts_usoAutos: TDataSource;
     dts_Acreedores: TDataSource;
+    AseguradoPolizas_renovar: TBooleanField;
+    AseguradoPolizasfin: TSQLTimeStampField;
     procedure FormShow(Sender: TObject);
     procedure dbgPolizasCellClick(Column: TColumn);
     procedure edFiltroLeftButtonClick(Sender: TObject);
@@ -687,6 +689,9 @@ type
     procedure btn_cob_editar_roboClick(Sender: TObject);
     procedure dbl_usoAutosEnter(Sender: TObject);
     procedure dbl_acreedoresEnter(Sender: TObject);
+    procedure dbgPolizasDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure AseguradoPolizasCalcFields(DataSet: TDataSet);
 
 
   private
@@ -722,6 +727,20 @@ implementation
 {$R *.dfm}
 
 uses dm;
+
+procedure TfrmPoliza.AseguradoPolizasCalcFields(DataSet: TDataSet);
+
+begin
+  inherited;
+  if incDay(now,-30) >= AseguradoPolizasfin.AsDateTime then
+  Begin
+    AseguradoPolizas_renovar.AsBoolean := true;
+  End
+  Else
+  Begin
+    AseguradoPolizas_renovar.AsBoolean := false;
+  End;
+end;
 
 function TfrmPoliza.Botones(prefijo: String; n, e, s, u, b: Boolean;
   sigla: string; habil: Boolean; grp: String): Boolean;
@@ -1780,6 +1799,27 @@ begin
 
   CargarGestiones;
 
+end;
+
+procedure TfrmPoliza.dbgPolizasDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  inherited;
+   if AseguradoPolizas_renovar.asBoolean  then
+  begin
+    dbgPolizas.Canvas.Brush.Color := clInactiveBorder ;
+    dbgPolizas.Canvas.Font.Style  := [fsItalic];
+    dbgPolizas.Canvas.Font.Color  := clWebDarkOrange ;//  clRed;
+    dbgPolizas.DefaultDrawColumnCell(Rect,Datacol,Column,State);
+  end;
+
+  if AseguradoPolizasactiva.AsInteger = 0 then
+  begin
+    dbgPolizas.Canvas.Brush.Color := clWhite;
+    dbgPolizas.Canvas.Font.Style  := [fsStrikeOut];
+    dbgPolizas.Canvas.Font.Color  := clRed;
+    dbgPolizas.DefaultDrawColumnCell(Rect,Datacol,Column,State);
+  end;
 end;
 
 procedure TfrmPoliza.dbg_autosCellClick(Column: TColumn);

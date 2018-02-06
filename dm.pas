@@ -10,7 +10,7 @@ uses
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.VCLUI.Wait, FireDAC.Comp.UI,
   FireDAC.Phys.ODBC, FireDAC.Phys.ODBCDef, FireDAC.Phys.MSSQL,
   FireDAC.Phys.MSSQLDef, FireDAC.Phys.ODBCBase, System.ImageList, Vcl.ImgList,
-  Vcl.Controls, Vcl.Menus;
+  Vcl.Controls, Vcl.Menus,DateUtils;
 
 
 type
@@ -93,16 +93,6 @@ type
     ArchivoLog: TFDQuery;
     fechadelSistema: TFDQuery;
     fechadelSistemaFechaSistema: TSQLTimeStampField;
-    AseguradoPolizasdescripcion: TWideStringField;
-    AseguradoPolizaspoliza: TWideStringField;
-    AseguradoPolizasnombre: TWideStringField;
-    AseguradoPolizasapellido: TWideStringField;
-    AseguradoPolizasramo_subramo: TIntegerField;
-    AseguradoPolizaspromotor: TWideStringField;
-    AseguradoPolizasPromotorNombre: TWideStringField;
-    AseguradoPolizasaseguradora: TWideStringField;
-    AseguradoPolizasHasta: TStringField;
-    AseguradoPolizasactiva: TIntegerField;
     Poliza: TFDQuery;
     Polizaramo_subramo: TIntegerField;
     Polizapoliza: TWideStringField;
@@ -134,10 +124,6 @@ type
     Polizatipopro: TWideStringField;
     Polizaguid: TStringField;
     Polizaid_cia: TIntegerField;
-    AseguradoPolizasguid: TStringField;
-    AseguradoPolizasvigencia: TIntegerField;
-    AseguradoPolizasrenueva: TWideStringField;
-    AseguradoPolizastipopro: TWideStringField;
     asegurados: TFDQuery;
     aseguradosasegurado: TIntegerField;
     aseguradosnombre: TWideStringField;
@@ -183,7 +169,6 @@ type
     aseguradosid_profecion: TIntegerField;
     aseguradosid_lugarTrabajo: TIntegerField;
     FrecuenciaPagos: TFDQuery;
-    AseguradoPolizassiglas: TWideStringField;
     insertarPoliza: TFDQuery;
     insertarPolizaramo_subramo: TIntegerField;
     insertarPolizapoliza: TWideStringField;
@@ -393,6 +378,21 @@ type
     dts_LimitesBien: TDataSource;
     usoAutos: TFDQuery;
     Acreedores: TFDQuery;
+    AseguradoPolizasdescripcion: TWideStringField;
+    AseguradoPolizaspoliza: TWideStringField;
+    AseguradoPolizasnombre: TWideStringField;
+    AseguradoPolizasapellido: TWideStringField;
+    AseguradoPolizasramo_subramo: TIntegerField;
+    AseguradoPolizaspromotor: TWideStringField;
+    AseguradoPolizasPromotorNombre: TWideStringField;
+    AseguradoPolizasaseguradora: TWideStringField;
+    AseguradoPolizasHasta: TStringField;
+    AseguradoPolizasactiva: TIntegerField;
+    AseguradoPolizasguid: TStringField;
+    AseguradoPolizasvigencia: TIntegerField;
+    AseguradoPolizasrenueva: TWideStringField;
+    AseguradoPolizastipopro: TWideStringField;
+    AseguradoPolizassiglas: TWideStringField;
   private
     { Private declarations }
   public
