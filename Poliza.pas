@@ -729,10 +729,13 @@ implementation
 uses dm;
 
 procedure TfrmPoliza.AseguradoPolizasCalcFields(DataSet: TDataSet);
-
+var
+ _dias : integer;
 begin
   inherited;
-  if incday(AseguradoPolizasfin.AsDateTime,30) >= now then
+  _dias :=  DaysBetween(now,incday(AseguradoPolizasfin.AsDateTime));
+  //DateTimePicker2.DateTime,DateTimePicker1.DateTime);
+  if _dias <= 30 then
   Begin
     AseguradoPolizas_renovar.AsBoolean := true;
   End
