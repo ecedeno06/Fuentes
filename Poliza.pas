@@ -732,7 +732,7 @@ procedure TfrmPoliza.AseguradoPolizasCalcFields(DataSet: TDataSet);
 
 begin
   inherited;
-  if incDay(now,-30) >= AseguradoPolizasfin.AsDateTime then
+  if incday(AseguradoPolizasfin.AsDateTime,30) >= now then
   Begin
     AseguradoPolizas_renovar.AsBoolean := true;
   End
