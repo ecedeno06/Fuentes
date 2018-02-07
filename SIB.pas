@@ -85,6 +85,8 @@ type
     procedure DBGrid1DblClick(Sender: TObject);
     procedure MantTipoGestion1Click(Sender: TObject);
     procedure mnu_Man_AreasClick(Sender: TObject);
+
+    procedure AppMessage(var Msg: TMsg; var Handled: Boolean);
   private
     { Private declarations }
   public
@@ -99,6 +101,38 @@ implementation
 {$R *.dfm}
 
 uses dm, Poliza, Mant_TipoGestion, Mant_Areas;
+
+procedure TfrmSIB.AppMessage(var Msg: TMsg; var Handled: Boolean);
+var
+   actual: TWinControl;
+begin
+   if Msg.message = WM_KEYDOWN then
+//     begin
+//     if Screen.ActiveControl.Tag = 77 then Exit;
+//     case Msg.wParam of
+//       VK_ADD: ;//
+//       VK_F12: ;//
+//       VK_RETURN:
+//          begin
+//          actual := Screen.ActiveControl;
+//          if actual is TEditStyle  then Msg.wParam := VK_TAB;
+//          if actual is TJvValidateEdit then Msg.wParam := VK_TAB;
+//          if actual is TDBEdit then Msg.wParam := VK_TAB;
+//          if actual is TjvDateEdit then
+//            if not TjvDateEdit(actual).PopupVisible then Msg.wParam := VK_TAB;
+//          if actual is TjvDBDateEdit then
+//            if not TjvDBDateEdit(actual).PopupVisible then Msg.wParam := VK_TAB;
+//          if actual is TDateTimePicker then Msg.wParam := VK_TAB;
+//          if actual is TDBLookupComboBox then
+//            if not TDBLookupComboBox(actual).ListVisible then Msg.wParam := VK_TAB;
+//          if actual is TjvDBLookupCombo then
+//            if not TjvDBLookupCombo(actual).ListVisible then Msg.wParam := VK_TAB;
+//          if actual is TStringGrid then Msg.wParam := VK_TAB;
+//        END;
+//      end;
+//     end;
+
+end;
 
 procedure TfrmSIB.CargarPendientes;
 begin

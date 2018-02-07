@@ -4,10 +4,12 @@ inherited frmPoliza: TfrmPoliza
   ClientHeight = 636
   ClientWidth = 932
   FormStyle = fsMDIChild
+  KeyPreview = True
   Visible = True
   WindowState = wsMaximized
   OnActivate = FormActivate
   OnShow = FormShow
+  ExplicitTop = -165
   ExplicitWidth = 948
   ExplicitHeight = 675
   PixelsPerInch = 96
@@ -3385,6 +3387,7 @@ inherited frmPoliza: TfrmPoliza
           RightButton.ImageIndex = 58
           RightButton.Visible = True
           TabOrder = 0
+          OnKeyPress = edFiltroKeyPress
           OnLeftButtonClick = edFiltroLeftButtonClick
           OnRightButtonClick = edFiltroRightButtonClick
         end
@@ -7641,7 +7644,7 @@ inherited frmPoliza: TfrmPoliza
           Top = 0
           Width = 910
           Height = 358
-          ActivePage = ts_vida
+          ActivePage = ts_Auto
           Align = alClient
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -7775,6 +7778,8 @@ inherited frmPoliza: TfrmPoliza
                     ParentBackground = False
                     ParentColor = False
                     TabOrder = 0
+                    ExplicitLeft = 0
+                    ExplicitTop = 0
                     DesignSize = (
                       636
                       240)
@@ -8012,6 +8017,91 @@ inherited frmPoliza: TfrmPoliza
                       ListSource = dts_Acreedores
                       TabOrder = 11
                       OnEnter = dbl_acreedoresEnter
+                    end
+                    object GroupBox3: TGroupBox
+                      Left = 271
+                      Top = 138
+                      Width = 360
+                      Height = 97
+                      Align = alCustom
+                      Anchors = [akTop, akRight, akBottom]
+                      Caption = 'Facturacion:'
+                      TabOrder = 12
+                      object Label51: TLabel
+                        Left = 223
+                        Top = 41
+                        Width = 43
+                        Height = 13
+                        Caption = 'impuesto'
+                        FocusControl = DBEdit14
+                      end
+                      object Label63: TLabel
+                        Left = 24
+                        Top = 32
+                        Width = 52
+                        Height = 13
+                        Caption = 'exonerado'
+                        FocusControl = DBEdit15
+                      end
+                      object cbx_exonerado_auto: TDBCheckBox
+                        Left = 120
+                        Top = 34
+                        Width = 90
+                        Height = 26
+                        BiDiMode = bdRightToLeft
+                        Caption = ':?Exonerado'
+                        DataField = 'exonerado'
+                        DataSource = dts_mBien
+                        ParentBiDiMode = False
+                        TabOrder = 0
+                        ValueChecked = 'SI'
+                        ValueUnchecked = 'NO'
+                      end
+                      object DBEdit12: TDBEdit
+                        Left = 272
+                        Top = 12
+                        Width = 85
+                        Height = 21
+                        DataField = 'pbruta'
+                        DataSource = dts_mBien
+                        TabOrder = 1
+                      end
+                      object DBEdit13: TDBEdit
+                        Left = 144
+                        Top = 112
+                        Width = 134
+                        Height = 21
+                        DataField = 'impuesto'
+                        DataSource = dts_mBien
+                        TabOrder = 2
+                      end
+                      object DBEdit14: TDBEdit
+                        Left = 272
+                        Top = 37
+                        Width = 85
+                        Height = 21
+                        DataField = 'impuesto'
+                        DataSource = dts_mBien
+                        TabOrder = 3
+                      end
+                      object DBEdit15: TDBEdit
+                        Left = 133
+                        Top = 66
+                        Width = 77
+                        Height = 21
+                        DataField = 'exonerado'
+                        DataSource = dts_mBien
+                        TabOrder = 4
+                      end
+                      object DBEdit16: TDBEdit
+                        Left = 16
+                        Top = 66
+                        Width = 81
+                        Height = 21
+                        DataField = 'imp'
+                        DataSource = dts_mBien
+                        TabOrder = 5
+                      end
                     end
                   end
                 end
@@ -9567,7 +9657,7 @@ inherited frmPoliza: TfrmPoliza
               Top = 3
               Width = 658
               Height = 321
-              ActivePage = ts_coberturas_vida
+              ActivePage = TabSheet8
               Align = alClient
               Style = tsFlatButtons
               TabOrder = 1
@@ -21913,6 +22003,7 @@ inherited frmPoliza: TfrmPoliza
     object Itemspbruta: TFloatField
       FieldName = 'pbruta'
       Origin = 'pbruta'
+      currency = True
     end
     object Itemsimpuesto: TFloatField
       FieldName = 'impuesto'
@@ -22152,10 +22243,12 @@ inherited frmPoliza: TfrmPoliza
     object mBienpbruta: TFloatField
       FieldName = 'pbruta'
       Origin = 'pbruta'
+      currency = True
     end
     object mBienimpuesto: TFloatField
       FieldName = 'impuesto'
       Origin = 'impuesto'
+      currency = True
     end
     object mBienpneta: TFloatField
       FieldName = 'pneta'
@@ -22298,8 +22391,8 @@ inherited frmPoliza: TfrmPoliza
       '  and poliza       = :Poliza'
       '  and vigencia     = :vigencia'
       '  and bien         = :bien  ')
-    Left = 263
-    Top = 572
+    Left = 279
+    Top = 516
     ParamData = <
       item
         Name = 'RAMO'
@@ -22401,8 +22494,8 @@ inherited frmPoliza: TfrmPoliza
   object dts_Coberturas: TDataSource
     DataSet = coberturas
     OnDataChange = dts_CoberturasDataChange
-    Left = 383
-    Top = 572
+    Left = 343
+    Top = 516
   end
   object dts_CoberturasRamo: TDataSource
     DataSet = dm1.coberturasRamo
@@ -22411,12 +22504,12 @@ inherited frmPoliza: TfrmPoliza
   end
   object dts_usoAutos: TDataSource
     DataSet = dm1.usoAutos
-    Left = 467
-    Top = 561
+    Left = 419
+    Top = 513
   end
   object dts_Acreedores: TDataSource
     DataSet = dm1.Acreedores
-    Left = 563
-    Top = 561
+    Left = 483
+    Top = 513
   end
 end

@@ -585,6 +585,15 @@ type
     dts_Acreedores: TDataSource;
     AseguradoPolizas_renovar: TBooleanField;
     AseguradoPolizasfin: TSQLTimeStampField;
+    GroupBox3: TGroupBox;
+    cbx_exonerado_auto: TDBCheckBox;
+    DBEdit12: TDBEdit;
+    DBEdit13: TDBEdit;
+    Label51: TLabel;
+    DBEdit14: TDBEdit;
+    Label63: TLabel;
+    DBEdit15: TDBEdit;
+    DBEdit16: TDBEdit;
     procedure FormShow(Sender: TObject);
     procedure dbgPolizasCellClick(Column: TColumn);
     procedure edFiltroLeftButtonClick(Sender: TObject);
@@ -695,6 +704,7 @@ type
     procedure pc_incendioChange(Sender: TObject);
     procedure pc_roboChange(Sender: TObject);
     procedure pc_vidaChange(Sender: TObject);
+    procedure edFiltroKeyPress(Sender: TObject; var Key: Char);
 
 
   private
@@ -2085,6 +2095,17 @@ begin
   end
   else
     grp_asignar.Enabled := false;
+
+end;
+
+procedure TfrmPoliza.edFiltroKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if key in [#13] then
+  Begin
+    Key := #0;
+    edFiltroLeftButtonClick (Sender);
+end;
 
 end;
 

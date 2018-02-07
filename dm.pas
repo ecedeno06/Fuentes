@@ -393,6 +393,8 @@ type
     AseguradoPolizasrenueva: TWideStringField;
     AseguradoPolizastipopro: TWideStringField;
     AseguradoPolizassiglas: TWideStringField;
+    AseguradoPolizasfin: TSQLTimeStampField;
+    AseguradoPolizasimpuesto: TFloatField;
   private
     { Private declarations }
   public

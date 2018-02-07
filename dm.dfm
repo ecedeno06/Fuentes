@@ -86,6 +86,14 @@ object dm1: Tdm1
       Origin = 'siglas'
       Size = 50
     end
+    object AseguradoPolizasfin: TSQLTimeStampField
+      FieldName = 'fin'
+      Origin = 'fin'
+    end
+    object AseguradoPolizasimpuesto: TFloatField
+      FieldName = 'impuesto'
+      Origin = 'impuesto'
+    end
   end
   object FDGUIxWaitCursor1: TFDGUIxWaitCursor
     Provider = 'Forms'
