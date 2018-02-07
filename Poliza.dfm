@@ -9,7 +9,6 @@ inherited frmPoliza: TfrmPoliza
   WindowState = wsMaximized
   OnActivate = FormActivate
   OnShow = FormShow
-  ExplicitTop = -165
   ExplicitWidth = 948
   ExplicitHeight = 675
   PixelsPerInch = 96
@@ -7654,7 +7653,6 @@ inherited frmPoliza: TfrmPoliza
           ParentFont = False
           Style = tsFlatButtons
           TabOrder = 0
-          ExplicitTop = 5
           object ts_Auto: TTabSheet
             Caption = 'Auto'
             Font.Charset = DEFAULT_CHARSET
@@ -7752,7 +7750,7 @@ inherited frmPoliza: TfrmPoliza
               Top = 3
               Width = 658
               Height = 321
-              ActivePage = ts_Auto_DatosGenerales
+              ActivePage = ts_auto_coberturas
               Align = alClient
               Style = tsFlatButtons
               TabOrder = 1
@@ -7778,8 +7776,6 @@ inherited frmPoliza: TfrmPoliza
                     ParentBackground = False
                     ParentColor = False
                     TabOrder = 0
-                    ExplicitLeft = 0
-                    ExplicitTop = 0
                     DesignSize = (
                       636
                       240)
@@ -8022,7 +8018,7 @@ inherited frmPoliza: TfrmPoliza
                       Left = 271
                       Top = 138
                       Width = 360
-                      Height = 97
+                      Height = 96
                       Align = alCustom
                       Anchors = [akTop, akRight, akBottom]
                       Caption = 'Facturacion:'
@@ -8276,6 +8272,7 @@ inherited frmPoliza: TfrmPoliza
                     Height = 43
                     Align = alClient
                     TabOrder = 0
+                    ExplicitTop = 0
                     object Label48: TLabel
                       Left = 6
                       Top = 3
